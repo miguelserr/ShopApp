@@ -19,6 +19,7 @@ namespace ShopApp
             var dbContext = new ShopDbContext();
             dbContext.Database.EnsureCreated();
             dbContext.Dispose();
+            Routing.RegisterRoute(nameof(ProductDetailPage), typeof(ProductDetailPage));
 
 #if DEBUG
     		builder.Logging.AddDebug();
