@@ -4,22 +4,29 @@ namespace ShopApp.Views;
 
 public partial class ProductsPage : ContentPage
 {
-	public ProductsPage()
-	{
-		InitializeComponent();
+    public ProductsPage()
+    {
+        InitializeComponent();
 
-		var dbContext = new ShopDbContext();
+        using var dbContext = new ShopDbContext();
 
-		foreach (var product in dbContext.Products)
-		{
-			var boton = new Button { Text = product.Nombre };
-			boton.Clicked += async (s, e) =>
-			{
-				var uri = $"{nameof(ProductDetailPage)}?id={ product.Id}";
-				await Shell.Current.GoToAsync(uri);
-			};
+        foreach (var product in dbContext.Products)
+        {
+            var boton = new Button
+            {
+                Text = product.Nombre
+            };
 
-			container.Children.Add(boton);
-		}
-	}
+            var productId = product.Id;
+
+            boton.Clicked += async (sender, e) =>
+            {
+                var uri = $"{nameof(ProductDetailPage)}?id={productId}";
+
+                await Shell.Current.GoToAsync(uri);
+            };
+
+            container.Children.Add(boton);
+        }
+    }
 }

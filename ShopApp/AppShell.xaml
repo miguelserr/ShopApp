@@ -42,4 +42,10 @@
         Text="Abrir repo"
         Clicked="MenuItem_Clicked"
         />
+
+    <ShellContent
+        Title="Help Support"
+        ContentTemplate="{DataTemplate views:HelpSupportPage}"
+        Route="HelpSupportPage"/>
+    
 </Shell>

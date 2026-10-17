@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using ShopApp.DataAcces;
+using ShopApp.Views;
 
 namespace ShopApp
 {
@@ -20,6 +21,7 @@ namespace ShopApp
             dbContext.Database.EnsureCreated();
             dbContext.Dispose();
             Routing.RegisterRoute(nameof(ProductDetailPage), typeof(ProductDetailPage));
+            Routing.RegisterRoute(nameof(HelpSupportDetailPage),typeof (ProductDetailPage));
 
 #if DEBUG
     		builder.Logging.AddDebug();

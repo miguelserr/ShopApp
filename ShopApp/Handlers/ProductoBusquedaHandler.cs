@@ -15,7 +15,9 @@ namespace ShopApp.Handlers
         }
 
         protected override void OnQueryChanged(string oldValue, string newValue)
-        {
+        { 
+            base.OnQueryChanged(oldValue, newValue);
+
             if (string.IsNullOrWhiteSpace(newValue))
             {
                 ItemsSource = null;
@@ -27,6 +29,12 @@ namespace ShopApp.Handlers
                 .Contains(newValue.ToLowerInvariant()));
 
             ItemsSource = resultados;
+        }
+
+        protected async override void OnItemSelected(object item)
+        {
+            await Shell.Current
+                .GoToAsync($"{nameof(ProductDetailPage)}?id={((Product)item).Id}");
         }
     }
 }
