@@ -1,28 +1,23 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:handlers="clr-namespace:ShopApp.Handlers"
              x:Class="ShopApp.Views.ProductsPage"
-             Title="Productos">
+             xmlns:handlers="clr-namespace:ShopApp.Handlers"
+             Title="ProductsPage">
 
     <Shell.SearchHandler>
         <handlers:ProductoBusquedaHandler
-            Placeholder="Buscar producto"
+            Placeholder="Buscar Producto"
             DisplayMemberName="Nombre"
             ShowsResults="True"
-            ItemTemplate="{StaticResource ProductDataTemplate}" />
+            ItemTemplate="{StaticResource ProductDataTemplate}"
+            />
     </Shell.SearchHandler>
-
-    <ScrollView>
-        <VerticalStackLayout x:Name="container"
-                             Padding="20"
-                             Spacing="10">
-
-            <Label Text="Lista de productos"
-                   FontSize="24"
-                   FontAttributes="Bold" />
-
-        </VerticalStackLayout>
-    </ScrollView>
-
+    
+    <VerticalStackLayout x:Name="container">
+        <Label 
+            Text="Pagina de los Productos"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+    </VerticalStackLayout>
 </ContentPage>

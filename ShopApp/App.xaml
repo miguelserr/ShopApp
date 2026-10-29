@@ -5,15 +5,12 @@
              xmlns:data="clr-namespace:ShopApp.DataAcces"
              xmlns:converters="clr-namespace:ShopApp.Converters"
              x:Class="ShopApp.App">
+    
     <Application.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
-                <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
-            </ResourceDictionary.MergedDictionaries>
 
-            <converters:PrecioParaColorConverter x:Key="PrecioParaColorConverter" />
-
+            <converters:PrecioParaColorConverter x:Key="PrecioParaColorConverter"/>
+            
             <DataTemplate x:Key="ProductDataTemplate" x:DataType="data:Product">
                 <Grid ColumnDefinitions="*,Auto" Padding="4" HeightRequest="88">
                     <VerticalStackLayout VerticalOptions="Center">
@@ -26,9 +23,14 @@
                            FontAttributes="Bold"
                            FontAutoScalingEnabled="True"
                            Text="{Binding Precio, StringFormat='{0:C}'}"
-                           TextColor="{Binding Precio, Converter={StaticResource PrecioParaColorConverter}}" />
+                           TextColor="{Binding Precio, Converter={StaticResource PrecioParaColorConverter}}"
+                           />
                 </Grid>
             </DataTemplate>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
+                <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

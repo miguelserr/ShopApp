@@ -1,21 +1,25 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Text;
 
-namespace ShopApp.Converters;
-
-public class PrecioParaColorConverter : IValueConverter
+namespace ShopApp.Converters
 {
-    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+    internal class PrecioParaColorConverter : IValueConverter
     {
-        var precio = System.Convert.ToDecimal(value);
-        if (precio >= 0 && precio <= 100)
+        public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
-            return Colors.LimeGreen;
+            var precio = (decimal)value;
+            if (precio >= 0 && precio <= 100)
+            {
+                return Colors.LimeGreen;
+            }
+            return Colors.DarkViolet;
         }
-        return Colors.DarkViolet;
-    }
 
-    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
-    {
-        throw new NotImplementedException();
+        public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

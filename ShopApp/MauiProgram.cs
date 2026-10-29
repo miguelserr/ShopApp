@@ -16,12 +16,15 @@ namespace ShopApp
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
-            
-            var dbContext = new ShopDbContext();
+
+            var dbContext = new ShopDbContext ();
             dbContext.Database.EnsureCreated();
             dbContext.Dispose();
+
             Routing.RegisterRoute(nameof(ProductDetailPage), typeof(ProductDetailPage));
-            Routing.RegisterRoute(nameof(HelpSupportDetailPage),typeof (ProductDetailPage));
+            Routing.RegisterRoute(nameof(ClientsDetailPage), typeof(ClientsDetailPage));
+            Routing.RegisterRoute(nameof(CategoriesDetailPage), typeof(CategoriesDetailPage));
+            Routing.RegisterRoute(nameof(HelpSupportDetailPage), typeof(HelpSupportDetailPage));
 
 #if DEBUG
     		builder.Logging.AddDebug();

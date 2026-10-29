@@ -5,13 +5,13 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:ShopApp"
     xmlns:views="clr-namespace:ShopApp.Views"
-    xmlns:info="clr-namespace:Microsoft.Maui.ApplicationModel;assembly=Microsoft.Maui.Essentials"
     Shell.FlyoutBehavior="Flyout"
-    Title="ShopApp2">
+    xmlns:info="clr-namespace:Microsoft.Maui.ApplicationModel;assembly=Microsoft.Maui.Essentials"
+    Title="ShopApp">
 
     <Shell.FlyoutHeader>
-        <Image Source="dotnet_bot.png" WidthRequest="128" Margin="18">
-            
+        <Image Source="dotnet_bot.png" WidthRequest="128" Margin="128">
+
         </Image>
     </Shell.FlyoutHeader>
 
@@ -21,31 +21,52 @@
             <Label Text="{x:Static info:AppInfo.VersionString}"/>
         </VerticalStackLayout>
     </Shell.FlyoutFooter>
-    
+
     <FlyoutItem Title="Configuración">
         <Tab Title="Resumen">
             <ShellContent
-                Title="Home"
-                ContentTemplate="{DataTemplate views:MainPage}"
-                Route="MainPage" />
+            Title="Home"
+            ContentTemplate="{DataTemplate views:MainPage}"
+            Route="MainPage" />
         </Tab>
 
         <Tab Title="Productos">
             <ShellContent
-                Title="Home"
-                ContentTemplate="{DataTemplate views:MainPage}"
-                Route="AboutPage" />
+             Title="Products"
+             ContentTemplate="{DataTemplate views:ProductsPage}"
+             Route="ProductsPage" />
         </Tab>
+
+        <Tab Title="Clientes">
+            <ShellContent
+             Title="Clients"
+             ContentTemplate="{DataTemplate views:ClientsPage}"
+             Route="ClientsPage" />
+        </Tab>
+
+        <Tab Title="Categorias">
+            <ShellContent
+             Title="Categories"
+             ContentTemplate="{DataTemplate views:CategoriesPage}"
+             Route="CategoriesPage" />
+        </Tab>
+
     </FlyoutItem>
 
-    <MenuItem
-        Text="Abrir repo"
-        Clicked="MenuItem_Clicked"
-        />
+    <ShellContent
+        Title="Acerca de mi Tienda"
+        ContentTemplate="{DataTemplate views:AboutPage}"
+        Route="AboutPage" />
 
     <ShellContent
         Title="Help Support"
         ContentTemplate="{DataTemplate views:HelpSupportPage}"
-        Route="HelpSupportPage"/>
-    
+        Route="HelpSupportPage" />
+
+    <MenuItem
+        Text="Abrir Repo"
+        Clicked="MenuItem_Clicked"
+        />
+
+
 </Shell>
