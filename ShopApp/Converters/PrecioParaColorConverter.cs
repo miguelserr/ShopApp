@@ -16,7 +16,7 @@ namespace ShopApp.Converters
             }
             return Colors.DarkViolet;
         }
-
+        //Esto es una prueba para revisar Git
         public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
