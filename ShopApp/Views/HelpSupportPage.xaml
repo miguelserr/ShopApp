@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ShopApp.Views.HelpSupportPage"
-             xmlns:views="clr-namespace:ShopApp.Views"
-             Title="HelpSupportPage">
-    <ContentPage.BindingContext>
-        <views:HelpSupportData VisitasPendientes="5"/>
-    </ContentPage.BindingContext>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:ShopApp.ViewModels"
+    x:Class="ShopApp.Views.HelpSupportPage"
+    Title="HelpSupportPage">
 
     <Grid RowDefinitions="Auto,*">
+
         <Label
-              Text="{Binding Clients.Count,Mode=OneWay}"
-              FontSize="30"/>
+            Text="{Binding Clients.Count, Mode=OneWay}"
+            FontSize="30"/>
 
         <CollectionView
             Grid.Row="1"
             SelectionMode="Single"
             SelectedItem="{Binding ClienteSeleccionado, Mode=TwoWay}"
-            ItemsSource="{Binding Clients,Mode=OneWay}"/>
-    </Grid> 
-    
+            ItemsSource="{Binding Clients, Mode=OneWay}"/>
+
+    </Grid>
+
 </ContentPage>

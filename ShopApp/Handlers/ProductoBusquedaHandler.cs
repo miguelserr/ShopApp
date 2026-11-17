@@ -14,7 +14,6 @@ namespace ShopApp.Handlers
         { 
             this.dbContext = new ShopDbContext();
         }
-
         protected override void OnQueryChanged(string oldValue, string newValue)
         {
             if (string.IsNullOrWhiteSpace(newValue))
@@ -28,9 +27,7 @@ namespace ShopApp.Handlers
                 .Contains(newValue.ToLowerInvariant()));
 
             ItemsSource = resultados;
-
         }
-
         protected async override void OnItemSelected(object item) 
         {
             await Shell.Current

@@ -9,7 +9,6 @@ namespace ShopApp.Handlers
     public class ClienteBusquedaHandler : SearchHandler
     {
         ShopDbContext dbContext;
-
         public ClienteBusquedaHandler()
         {
             this.dbContext = new ShopDbContext();
@@ -26,9 +25,7 @@ namespace ShopApp.Handlers
             var resultados = dbContext.Clients
                 .Where(p => p.Nombre.ToLowerInvariant()
                 .Contains(newValue.ToLowerInvariant()));
-
             ItemsSource = resultados;
-
         }
 
         protected async override void OnItemSelected(object item)

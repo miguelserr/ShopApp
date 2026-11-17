@@ -1,12 +1,33 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ShopApp.Views.ClientsDetailPage"
-             Title="ClientsDetailPage">
-    <VerticalStackLayout x:Name="container">
-        <Label 
+
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:ShopApp.ViewModels"
+    x:Class="ShopApp.Views.ClientsDetailPage"
+    Title="ClientsDetailPage">
+
+    <ContentPage.BindingContext>
+        <vm:ClientsDetailViewModel/>
+    </ContentPage.BindingContext>
+
+    <VerticalStackLayout>
+
+        <Label
             Text="Cliente"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+            VerticalOptions="Center"
+            HorizontalOptions="Center"/>
+
+        <Label
+            Text="{Binding NombreCliente}"
+            FontAttributes="Bold"
+            Margin="0,0,0,5"/>
+
+        <Label
+            Text="{Binding DireccionCliente}"
+            FontAttributes="Bold"
+            Margin="0,0,0,5"/>
+
     </VerticalStackLayout>
+
 </ContentPage>

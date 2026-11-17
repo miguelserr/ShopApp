@@ -1,40 +1,50 @@
 ﻿using ShopApp.DataAcces;
 using ShopApp.Views;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace ShopApp.Handlers
+namespace ShopApp.Handlers;
+
+public class CategoriaBusquedaHandler : SearchHandler
 {
-    public class CategoriaBusquedaHandler : SearchHandler
+    private readonly ShopDbContext dbContext;
+
+    public CategoriaBusquedaHandler()
     {
-        ShopDbContext dbContext;
+        dbContext = new ShopDbContext();
+    }
+    protected override void OnQueryChanged(
+        string oldValue,
+        string newValue)
+    {
+        base.OnQueryChanged(oldValue, newValue);
 
-        public CategoriaBusquedaHandler()
-        { 
-            this.dbContext = new ShopDbContext();
+        if (string.IsNullOrWhiteSpace(newValue))
+        {
+            ItemsSource = null;
+            return;
         }
 
-        protected override void OnQueryChanged(string oldValue, string newValue)
+        string textoBusqueda = newValue.Trim().ToLowerInvariant();
+
+        var resultados = dbContext.Categories
+            .AsEnumerable()
+            .Where(categoria =>
+                categoria.Nombre != null &&
+                categoria.Nombre.ToLowerInvariant()
+                    .Contains(textoBusqueda))
+            .ToList();
+
+        ItemsSource = resultados;
+    }
+    protected override async void OnItemSelected(object item)
+    {
+        base.OnItemSelected(item);
+
+        if (item is Category categoria)
         {
-            if (string.IsNullOrWhiteSpace(newValue))
-            {
-                ItemsSource = null;
-                return;
-            }
+            var uri =
+                $"{nameof(CategoriesDetailPage)}?id={categoria.Id}";
 
-            var resultados = dbContext.Categories
-                .Where(p => p.Nombre.ToLowerInvariant()
-                .Contains(newValue.ToLowerInvariant()));
-
-            ItemsSource = resultados;
-
-        }
-
-        protected async override void OnItemSelected(object item) 
-        {
-            await Shell.Current
-                .GoToAsync($"{nameof(CategoriesDetailPage)}?id={((Category)item).Id}");
+            await Shell.Current.GoToAsync(uri);
         }
     }
 }

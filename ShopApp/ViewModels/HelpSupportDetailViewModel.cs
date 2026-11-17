@@ -1,9 +1,8 @@
-
-using ShopApp.DataAcces;
 using CommunityToolkit.Mvvm.ComponentModel;
+using ShopApp.DataAcces;
+using ShopApp.Services;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
-using Microsoft.EntityFrameworkCore;
 
 namespace ShopApp.ViewModels;
 
@@ -26,13 +25,20 @@ public partial class HelpSupportDetailViewModel
     [ObservableProperty]
     private int cantidad = 1;
 
-
     private readonly ShopOutDbContext _outDbContext;
 
+    private readonly IConnectivity _connectivity;
+
+    private readonly CompraService _compraService;
+
     public HelpSupportDetailViewModel(
-        ShopOutDbContext outDbContext)
+        ShopOutDbContext outDbContext,
+        IConnectivity connectivity,
+        CompraService compraService)
     {
         _outDbContext = outDbContext;
+        _connectivity = connectivity;
+        _compraService = compraService;
 
         using var database = new ShopDbContext();
 
@@ -59,12 +65,32 @@ public partial class HelpSupportDetailViewModel
         {
             await EnviarCompra();
         },
-        () => true);
+        () => StatusConnection());
+
+        _connectivity.ConnectivityChanged +=
+            Connectivity_ConnectivityChanged;
     }
 
     public ICommand AddCommand { get; }
 
     public ICommand EnviarCompraCommand { get; }
+
+    private void Connectivity_ConnectivityChanged(
+        object? sender,
+        ConnectivityChangedEventArgs e)
+    {
+        MainThread.BeginInvokeOnMainThread(() =>
+        {
+            ((MiComando)EnviarCompraCommand)
+                .RaiseCanExecuteChanged();
+        });
+    }
+
+    private bool StatusConnection()
+    {
+        return _connectivity.NetworkAccess
+            == NetworkAccess.Internet ? true : false;
+    }
 
     private async Task EnviarCompra()
     {
@@ -72,15 +98,16 @@ public partial class HelpSupportDetailViewModel
         {
             await Shell.Current.DisplayAlert(
                 "Aviso",
-                "No hay productos para guardar.",
+                "No hay productos para enviar.",
                 "OK");
 
             return;
         }
 
+        var comprasParaEnviar = new List<CompraItem>();
+
         foreach (var item in Compras)
         {
-
             var producto = Products.FirstOrDefault(
                 p => p.Id == item.ProductId);
 
@@ -94,18 +121,53 @@ public partial class HelpSupportDetailViewModel
                 producto.Precio
             );
 
-            _outDbContext.Compras.Add(compraItem);
+            comprasParaEnviar.Add(compraItem);
         }
 
-        await _outDbContext.SaveChangesAsync();
+        if (comprasParaEnviar.Count != Compras.Count)
+        {
+            await Shell.Current.DisplayAlert(
+                "Error",
+                "No se encontraron todos los productos de la compra.",
+                "OK");
 
-        await Shell.Current.DisplayAlert(
-            "Éxito",
-            "Compra guardada localmente en SQLite.",
-            "OK");
+            return;
+        }
+
+        try
+        {
+            var resultado = await _compraService
+                .EnviarData(comprasParaEnviar);
+
+            if (resultado)
+            {
+
+                _outDbContext.Compras.AddRange(
+                    comprasParaEnviar);
+
+                await _outDbContext.SaveChangesAsync();
+
+                await Shell.Current.DisplayAlert(
+                    "Éxito",
+                    "Compra enviada correctamente al servidor backend y guardada en SQLite.",
+                    "OK");
+            }
+            else
+            {
+                await Shell.Current.DisplayAlert(
+                    "Error",
+                    "El servidor rechazó la compra o devolvió un error.",
+                    "OK");
+            }
+        }
+        catch (Exception ex)
+        {
+            await Shell.Current.DisplayAlert(
+                "Error",
+                $"Ocurrió una excepción al procesar la compra: {ex.Message}",
+                "OK");
+        }
     }
-
-
     public void ApplyQueryAttributes(
         IDictionary<string, object> query)
     {

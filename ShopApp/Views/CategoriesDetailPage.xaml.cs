@@ -1,25 +1,24 @@
-using ShopApp.DataAcces;
+using ShopApp.ViewModels;
 
 namespace ShopApp.Views;
 
 public partial class CategoriesDetailPage : ContentPage, IQueryAttributable
 {
-	public CategoriesDetailPage()
-	{
-		InitializeComponent();
-	}
-
-    public void ApplyQueryAttributes(IDictionary<string, object> query)
+    public CategoriesDetailPage()
     {
-        var dbContext = new ShopDbContext();
-        var id = int.Parse(query["id"].ToString());
-        var categoria = dbContext.Categories.First(x => x.Id == id);
+        InitializeComponent();
+    }
 
-        container.Children.Add(new Label
+    public void ApplyQueryAttributes(
+        IDictionary<string, object> query)
+    {
+        if (query.TryGetValue("id", out var valorId)
+            && int.TryParse(valorId?.ToString(), out int id))
         {
-            Text = categoria.Nombre,
-            FontAttributes = FontAttributes.Bold,
-            Margin = new Thickness(0, 0, 0, 5)
-        });
+            if (BindingContext is CategoriesDetailViewModel viewModel)
+            {
+                viewModel.CargarCategoria(id);
+            }
+        }
     }
 }

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="ShopApp.Views.ResumenPage"
+    Title="Resumen de Ventas (SQLite)">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="20"
+            Spacing="20">
+            <Label
+                Text="Dashboard de Base de Datos"
+                FontSize="24"
+                FontAttributes="Bold"/>
+            <Label
+                Text="Estadísticas de información guardada localmente en SQLite."
+                FontSize="13"
+                TextColor="Gray"/>
+
+
+            <Border
+                BackgroundColor="#5135D5"
+                StrokeThickness="0"
+                Padding="20">
+                <VerticalStackLayout Spacing="10">
+                    <Label
+                        Text="Ingresos Totales (SQLite)"
+                        TextColor="White"/>
+                    <Label
+                        Text="{Binding Total, StringFormat='${0:N2}'}"
+                        FontSize="30"
+                        FontAttributes="Bold"
+                        TextColor="White"/>
+                </VerticalStackLayout>
+            </Border>
+
+
+            <Grid
+                ColumnDefinitions="*,*"
+                ColumnSpacing="10">
+                <Border
+                    Grid.Column="0"
+                    Stroke="#DDDDDD"
+                    Padding="15">
+                    <VerticalStackLayout Spacing="10">
+                        <Label
+                            Text="Clientes Únicos"
+                            FontAttributes="Bold"/>
+                        <Label
+                            Text="{Binding Clients}"
+                            FontSize="26"/>
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border
+                    Grid.Column="1"
+                    Stroke="#DDDDDD"
+                    Padding="15">
+                    <VerticalStackLayout Spacing="10">
+                        <Label
+                            Text="Items Vendidos"
+                            FontAttributes="Bold"/>
+                        <Label
+                            Text="{Binding TotalProducts}"
+                            FontSize="26"/>
+                    </VerticalStackLayout>
+                </Border>
+            </Grid>
+
+
+            <Border
+                Stroke="#DDDDDD"
+                Padding="15">
+
+                <VerticalStackLayout Spacing="10">
+                    <Label
+                        Text="Registros de Compra"
+                        FontAttributes="Bold"/>
+                    <Label
+                        Text="{Binding Visitas}"
+                        FontSize="26"/>
+                </VerticalStackLayout>
+            </Border>
+
+
+            <Label
+                Text="Detalles Técnicos de Almacenamiento"
+                FontSize="18"
+                FontAttributes="Bold"/>
+            <Label
+                Text="Motor: SQLite (Base de datos local)"/>
+            <Label
+                Text="Modelo: CompraItem"/>
+            <Label
+                Text="Contexto: ShopOutDbContext"/>
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

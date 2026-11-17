@@ -9,29 +9,29 @@
             HorizontalOptions="Center"
             Padding="30,0"
             Spacing="25">
-            
+
             <Label Text="Categorias"
                    FontSize="15"
                    FontAttributes="Bold"
                    HorizontalTextAlignment="Center"
                    TextColor="MediumVioletRed"/>
-            
+
             <Label x:Name="category"
                    FontSize="18"
                    FontAttributes="Bold"
                    HorizontalTextAlignment="Center"/>
-            
+
             <Label Text="Cliente"
                    FontSize="15"
                    FontAttributes="Bold"
                    HorizontalTextAlignment="Center"
                    TextColor="MediumVioletRed"/>
-            
+
             <Label x:Name="client"
                    FontSize="18"
                    FontAttributes="Bold"
                    HorizontalTextAlignment="Center"/>
-            
+
             <Label Text="Producto"
                    FontSize="15"
                    FontAttributes="Bold"
