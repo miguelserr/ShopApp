@@ -1,25 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows.Input;
 
 namespace ShopApp
 {
-
     public class MiComando : ICommand
     {
-
-        Action _action;
+        private readonly Action _action;
         private readonly Func<bool> _canExecute;
-        public MiComando(Action action, Func<bool> canExecute) 
+
+        public MiComando(Action action, Func<bool> canExecute)
         {
             _action = action;
             _canExecute = canExecute;
-
-        }
-
-        public MiComando()
-        {
         }
 
         public event EventHandler? CanExecuteChanged;
@@ -28,15 +20,9 @@ namespace ShopApp
         {
             CanExecuteChanged?.Invoke(this, EventArgs.Empty);
         }
-        
-        public bool CanExecute(object? parameter)
-        {
-            return _canExecute();
-        }
 
-        public void Execute(object? parameter)
-        {
-            _action();
-        }
+        public bool CanExecute(object? parameter) => _canExecute();
+
+        public void Execute(object? parameter) => _action();
     }
 }

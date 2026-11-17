@@ -1,13 +1,9 @@
-
 using CommunityToolkit.Mvvm.ComponentModel;
 using ShopApp.DataAcces;
-using static Android.Util.EventLogTags;
 
 namespace ShopApp.ViewModels;
-
 public partial class ProductDetailViewModel : ViewModelGlobal
 {
-
     [ObservableProperty]
     private string nombre = string.Empty;
 
